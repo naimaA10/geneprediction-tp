@@ -228,17 +228,23 @@ def main() -> None: # pragma: no cover
     #print(start)
     print(f"codon start : {start}, {sequence[start:start+3]}")
     print(f"codon stop : {stop}, {sequence[stop:stop+3]}")
-    probable_genes = predict_genes(sequence, start_regex, stop_regex, shine_regex, 
-                  args.min_gene_len, args.max_shine_dalgarno_distance, args.min_gap)
 
     # Don't forget to uncomment !!!
     # Call these function in the order that you want
     # We reverse and complement
     sequence_rc = reverse_complement(sequence)
-    probable_genes_comp = predict_genes(sequence, start_regex, stop_regex, shine_regex, 
+
+    predictgene = predict_genes(sequence, start_regex, stop_regex, shine_regex, 
                   args.min_gene_len, args.max_shine_dalgarno_distance, args.min_gap)
 
-    
+    probable_genes_comp = predict_genes(sequence_rc, start_regex, stop_regex, shine_regex, 
+                  args.min_gene_len, args.max_shine_dalgarno_distance, args.min_gap)
+
+    for gene in probable_genes_comp:
+        gene[0], gene[1] = len(sequence) - gene[1] + 1, len(sequence) - gene[0] + 1
+
+    # Combine the gene lists from both directions
+    probable_genes = predictgene + probable_genes_comp
 
     # Call to output functions
     write_genes_pos(args.predicted_genes_file, probable_genes)
