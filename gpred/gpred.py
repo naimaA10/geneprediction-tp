@@ -8,6 +8,14 @@ from re import Pattern
 from pathlib import Path
 from typing import List, Union, Optional
 
+__author__ = "AMMICHE Naïma"
+__copyright__ = "Universite Paris Diderot"
+__credits__ = ["AMMICHE Naïma"]
+__license__ = "GPL"
+__version__ = "1.0.0"
+__maintainer__ = "AMMICHE Naïma"
+__email__ = "naima.ammiche@gmail.com"
+__status__ = "Developpement"
 
 def isfile(path: str) -> Path:  # pragma: no cover
     """Check if path is an existing file.
